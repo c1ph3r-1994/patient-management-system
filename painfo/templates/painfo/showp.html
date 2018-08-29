@@ -1,0 +1,83 @@
+{% extends "painfo/header.html" %}
+
+
+{% block nav %}
+
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+<div class="container">
+      <a class="navbar-brand" href="#">Brijlal</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="/patient_info/home/">Home <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Contact</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Profile</a>
+            <div class="dropdown-menu" aria-labelledby="dropdown01">
+              <a class="dropdown-item" href="/patient_info/profile/">View Profile</a>
+              <a class="dropdown-item" href="/patient_info/edit/">Edit Profile</a>
+              <a class="dropdown-item" href="/patient_info/password/">Change Password</a>
+            </div>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Search</a>
+            <div class="dropdown-menu" aria-labelledby="dropdown01">
+              <a class="dropdown-item" href="/patient_info/patient_information/">UHID</a>
+              <a class="dropdown-item" href="/patient_info/patient_info_ipno/">IP/No</a>
+              <a class="dropdown-item" href="/patient_info/typesearch/">Type</a>
+              <a class="dropdown-item" href="/patient_info/datesearch/">Date</a>
+            </div>
+          </li>
+        </ul>
+
+           <form class="form-inline my-2 my-lg-0" method="POST" enctype="multipart/form-data">
+               {% csrf_token %}
+               {{ form.Search }}
+          <!-- <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search"> -->
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit" value="submit">Search</button>
+
+          <a class="btn btn-outline-success my-4 my-sm-0" href="/patient_info/logout/">Logout</a>
+        </form>
+      </div>
+    </div>
+    </nav>
+
+{% endblock %}
+{% block content %}
+<div class="container">
+<br/>
+    <br/>
+    <br/>
+    <br/>
+
+<h1>
+<b>All Patients List</b>
+</h1>
+<br/>
+{% if painfo %}
+    <h5>
+    <ul>
+    {% for inf in painfo %}
+        <li> <a href="{{ inf.uhid }}">{{ inf.uhid}},{{ inf.name }}</a></li>
+    {% endfor %}
+    </h5>
+    </ul>
+{% else %}
+    <h3>you dont have any patient info </h3>
+{% endif %}
+
+
+
+
+</div>
+{% endblock %}
